@@ -6,6 +6,16 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/ProjectFiles/Scenes/InitScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  m_configObjects: {}
+  - enabled: 1
+    path: Assets/ProjectFiles/Scenes/LobbyScene.unity
+    guid: 3297015f4c100fd49b58078bbb577ce5
+  - enabled: 1
+    path: Assets/ProjectFiles/Scenes/TestScenario.unity
+    guid: a6b673bb140e81d4cb4fe3c2f9fa084f
+  m_configObjects:
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 84499e0d93629b14dbbf9142b3a5fb5d,
+      type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 02175377a7cfc794abac301c3bffceb5,
+      type: 2}

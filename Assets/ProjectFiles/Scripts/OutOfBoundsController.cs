@@ -1,12 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+// 
+// Если вдруг игрок выкинет важный предмет или сам выпадет за карту
+//
+/// </summary>
+
 public class OutOfBoundsController : MonoBehaviour
 {
-     public string[] allowedTags = new string[] { "Player", "Grabbable" };
-     
-    private Dictionary<Transform, Vector3> startPositions = new Dictionary<Transform, Vector3>();
-    private Dictionary<Transform, Quaternion> startRotations = new Dictionary<Transform, Quaternion>();
+    public string[] allowedTags = new string[] { "Player", "Grabbable" };
+    
+    private Dictionary<Transform, Vector3> _startPositions = new Dictionary<Transform, Vector3>();
+    private Dictionary<Transform, Quaternion> _startRotations = new Dictionary<Transform, Quaternion>();
 
     private void Start()
     {
@@ -17,11 +23,11 @@ public class OutOfBoundsController : MonoBehaviour
             {
                 if (obj.CompareTag(tag))
                 {
-                    Transform root = obj.transform.root;
-                    if (!startPositions.ContainsKey(root))
+                    Transform root = obj.transform;
+                    if (!_startPositions.ContainsKey(root))
                     {
-                        startPositions[root] = root.position;
-                        startRotations[root] = root.rotation;
+                        _startPositions[root] = root.position;
+                        _startRotations[root] = root.rotation;
                     }
                 }
             }
@@ -30,16 +36,16 @@ public class OutOfBoundsController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Transform objectTransform = other.transform.root;
-
+        Transform objectTransform = other.transform;
+        Debug.Log($"{objectTransform.name} and {other.name}");
         foreach (var tag in allowedTags)
         {
             if (objectTransform.CompareTag(tag))
             {
-                if (!startPositions.ContainsKey(objectTransform))
+                if (!_startPositions.ContainsKey(objectTransform))
                 {
-                    startPositions[objectTransform] = objectTransform.position;
-                    startRotations[objectTransform] = objectTransform.rotation;
+                    _startPositions[objectTransform] = objectTransform.position;
+                    _startRotations[objectTransform] = objectTransform.rotation;
                 }
 
                 ReturnOnStartPosition(objectTransform.gameObject);
@@ -50,9 +56,9 @@ public class OutOfBoundsController : MonoBehaviour
 
     private void ReturnOnStartPosition(GameObject obj)
     {
-        Transform objectTransform = obj.transform.root;
+        Transform objectTransform = obj.transform;
 
-        if (startPositions.TryGetValue(objectTransform, out Vector3 pos) && startRotations.TryGetValue(objectTransform, out Quaternion rot))
+        if (_startPositions.TryGetValue(objectTransform, out Vector3 pos) && _startRotations.TryGetValue(objectTransform, out Quaternion rot))
         {
             Rigidbody rb = objectTransform.GetComponent<Rigidbody>();
             if (rb != null)

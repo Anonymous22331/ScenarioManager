@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class IsInZoneAction : MonoBehaviour, IStepAction
 {
@@ -7,6 +8,8 @@ public class IsInZoneAction : MonoBehaviour, IStepAction
     
     public StepActionType ActionType => StepActionType.IsInZone;
 
+    [SerializeField] private UnityEvent _onStepCompleteEvents;
+    
     private Step _step;
     private Action<Step> _onComplete;
     private bool _isCompleted;
@@ -15,6 +18,11 @@ public class IsInZoneAction : MonoBehaviour, IStepAction
     {
         _step = step;
         _onComplete = onComplete;
+    }
+
+    public void InvokeStepCompleteEvents()
+    {
+        _onStepCompleteEvents.Invoke();
     }
 
     private void OnTriggerEnter(Collider other)

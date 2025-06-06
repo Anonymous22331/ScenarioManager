@@ -2,6 +2,12 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.XR;
 
+/// <summary>
+// 
+// Контроллер прицела для ПК
+//
+/// </summary>
+
 public class CrosshairController : MonoBehaviour
 {
     [SerializeField] private GameObject _crosshairUI;

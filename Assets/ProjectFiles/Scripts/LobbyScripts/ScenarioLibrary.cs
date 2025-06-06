@@ -1,8 +1,12 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-// SO для хранения всех сценариев
+/// <summary>
 // 
+// SO для хранения всех сценариев
+//
+/// </summary>
 
 [CreateAssetMenu(fileName = "ScenarioLibrary", menuName = "Scenarios/Scenario Library")]
 public class ScenarioLibrary : ScriptableObject
@@ -19,4 +23,12 @@ public class ScenarioLibrary : ScriptableObject
 
         return null;
     }
+}
+
+[Serializable]
+public struct ScenarioDefinition
+{
+    public string Id;
+    public string DisplayName;
+    public string SceneToLoad;
 }

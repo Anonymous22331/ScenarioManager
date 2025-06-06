@@ -1,10 +1,13 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class ClickUIButtonAction : MonoBehaviour, IStepAction
 {
     public StepActionType ActionType => StepActionType.ClickUIButton;
+    
+    [SerializeField] private UnityEvent _onStepCompleteEvents;
 
     private Step step;
     private Action<Step> onComplete;
@@ -18,6 +21,11 @@ public class ClickUIButtonAction : MonoBehaviour, IStepAction
         var button = this.GetComponent<Button>();
         if (button != null)
             button.onClick.AddListener(OnClicked);
+    }
+
+    public void InvokeStepCompleteEvents()
+    {
+        _onStepCompleteEvents.Invoke();
     }
 
     private void OnClicked()

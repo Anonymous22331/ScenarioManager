@@ -1,10 +1,13 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class GrabAction : MonoBehaviour, IStepAction
 {
     public StepActionType ActionType => StepActionType.Grab;
+    
+    [SerializeField] private UnityEvent _onStepCompleteEvents;
 
     private Step _step;
     private Action<Step> _onComplete;
@@ -18,6 +21,11 @@ public class GrabAction : MonoBehaviour, IStepAction
         var grab = this.GetComponent<XRGrabInteractable>();
         if (grab != null)
             grab.selectEntered.AddListener(OnGrabbed);
+    }
+
+    public void InvokeStepCompleteEvents()
+    {
+        _onStepCompleteEvents.Invoke();
     }
 
     private void OnGrabbed(SelectEnterEventArgs args)

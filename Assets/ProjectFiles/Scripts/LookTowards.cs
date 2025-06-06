@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+// 
+// Использовал для реализации "слежения" панелей за игроком
+//
+/// </summary>
+
 public class LookTowards : MonoBehaviour
 {
     [Header("Цель для отслеживания")]
